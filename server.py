@@ -7,7 +7,14 @@ SECRET_KEY = "12345abc"
 
 @app.route("/")
 def home():
-    return "Server is alive"
+    return """
+    <h2>Send Message</h2>
+    <form action="/save" method="post">
+        <input name="key" placeholder="key"><br><br>
+        <input name="text" placeholder="text"><br><br>
+        <button type="submit">Send</button>
+    </form>
+    """
 
 @app.route("/save", methods=["POST"])
 def save():
