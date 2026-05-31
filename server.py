@@ -1,8 +1,14 @@
 from flask import Flask, request
+import os
 
 app = Flask(__name__)
 
-# simple security key
+# 👇 ADD IT HERE
+@app.route("/")
+def home():
+    return "Server is alive"
+
+
 SECRET_KEY = "12345abc"
 
 @app.route("/save", methods=["POST"])
@@ -16,6 +22,9 @@ def save():
     with open("log.txt", "a") as f:
         f.write(text + "\n")
 
-    return "saved"
+    return "saved", 200
 
-app.run(host="0.0.0.0", port=10000)
+
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 10000))
+    app.run(host="0.0.0.0", port=port)
