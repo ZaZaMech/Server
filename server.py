@@ -3,13 +3,11 @@ import os
 
 app = Flask(__name__)
 
-# 👇 ADD IT HERE
+SECRET_KEY = "12345abc"
+
 @app.route("/")
 def home():
     return "Server is alive"
-
-
-SECRET_KEY = "12345abc"
 
 @app.route("/save", methods=["POST"])
 def save():
@@ -23,6 +21,15 @@ def save():
         f.write(text + "\n")
 
     return "saved", 200
+
+
+@app.route("/logs")
+def logs():
+    try:
+        with open("log.txt", "r") as f:
+            return f.read()
+    except FileNotFoundError:
+        return "No logs yet"
 
 
 if __name__ == "__main__":
